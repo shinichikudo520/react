@@ -14,10 +14,12 @@
 </head>
 <body>
     <div id="example"></div>
-    <!-- 注意：
-    如果我们需要使用 JSX，则 <script> 标签的 type 属性需要设置为 text/babel。 -->
+    <!-- 注意：如果我们需要使用 JSX，则 <script> 标签的 type 属性需要设置为 text/babel。 -->
     <script type="text/babel">
-        ReactDOM.render(<h1>hello,world</h1>,document.getElementById('example'));
+        //创建虚拟DOM
+        var vDom = <h1>hello,world</h1>;//不是字符串
+        //渲染虚拟DOM
+        ReactDOM.render(vDom,document.getElementById('example'));
     </script>
 </body>
 </html>
