@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+     <!-- 提供与 DOM 相关的功能 -->
+     <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+     <!-- Babel 可以将 ES6 代码转为 ES5 代码 ,集成了JSX的语法-->
+     <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="example1"></div>
+    <div id="example2"></div>
+    <script type="text/babel">
+        //1. 定义组件
+        //1.1 工厂函数组件（简单组件）
+        //定义
+        function MyComponent(param) { 
+            return <h2>工厂函数组件（简单组件）</h2>;
+        }
+        //使用
+        ReactDOM.render(<MyComponent />,document.getElementById('example1'));
+        //1.2 ES6类组件（复杂组件）
+        //定义
+        class MyComponent2 extends React.Component{
+            render(){
+                console.log(this);
+                return <h2>ES6类组件（复杂组件）</h2>;
+            }
+        }
+        //使用
+        ReactDOM.render(<MyComponent2 />,document.getElementById('example2'));
+    </script>
+</body>
+</html>
