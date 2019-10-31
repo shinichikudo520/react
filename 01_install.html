@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- React 的核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <!-- 提供与 DOM 相关的功能 -->
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- Babel 可以将 ES6 代码转为 ES5 代码 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <!-- 注意：
+    如果我们需要使用 JSX，则 <script> 标签的 type 属性需要设置为 text/babel。 -->
+    <script type="text/babel">
+        ReactDOM.render(<h1>hello,world</h1>,document.getElementById('example'));
+    </script>
+</body>
+</html>
