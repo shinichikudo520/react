@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- React 的核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <!-- 提供与 DOM 相关的功能 -->
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- Babel 可以将 ES6 代码转为 ES5 代码 ,集成了JSX的语法-->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <!-- 检查react组件属性props的类型 -->
+    <script src="./js/prop-types.js"></script>
+</head>
+<body>
+    <div id="example1"></div>
+    <div id="example2"></div>
+    <script type="text/babel">
+        //定义组件
+        class App extends React.Component{
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    opacity:1
+                }
+            }
+            //1. 生命周期：组件渲染结束
+            componentDidMount() {
+                this.intervalId = setInterval(() => {
+                    let {opacity} = this.state;
+                    opacity -= 0.1;
+                    console.log('计时器启动...',opacity);
+
+                    if(opacity <= 0){
+                        opacity = 1;
+                    }
+                    //更新状态
+                    this.setState({opacity});
+                }, 200);
+            }
+            destroyComponent(){
+                //4. 在DOM元素上卸载组件
+                ReactDOM.unmountComponentAtNode(document.getElementById('example1'));
+            }
+            //2. 组件被卸载前的生命周期     
+            componentWillUnmount() {
+                clearInterval(this.intervalId);
+            }
+            
+            //3. 渲染组件
+            render(){
+                const {opacity} = this.state;
+                //style={ {opacity} }第一个{}表示内容为js代码，第二个{}表示一个对象
+                return (
+                    <div>
+                        <p style={ {opacity,'color':'red'} }>{this.props.msg}</p>
+                        <button onClick={this.destroyComponent}>不活了</button>
+                    </div>
+                );
+            }
+
+        }
+        App.propTypes = {
+            msg:PropTypes.string.isRequired
+        }
+        //渲染组件
+        ReactDOM.render(<App msg='React学不会，怎么办？'/>,document.getElementById('example1'));
+    </script>
+</body>
+</html>
