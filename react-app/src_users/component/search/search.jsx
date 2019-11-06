@@ -1,11 +1,14 @@
 import React,{Component} from 'react';
-import PubSub from 'pubsub-js';
+import PropTypes from 'prop-types';
 
 import './search.css'
 
 export default class Search extends Component{ 
     state = {
         searchName:''
+    }
+    static propTypes = {
+        setSearchName : PropTypes.func.isRequired,
     }
     changeSearchName = (event) => {
         let searchName = event.target.value;
@@ -16,8 +19,7 @@ export default class Search extends Component{
         //接收数据：受控组件，state + onChange
         let {searchName} = this.state;
         //传递数据
-        //利用pubsub发布消息
-        PubSub.publish('search',searchName);
+        this.props.setSearchName(searchName);
     }
     render(){
         let {searchName} = this.state;
