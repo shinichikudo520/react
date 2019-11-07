@@ -41,3 +41,39 @@ export default class App extends Component{
   }
 }
 ```
+5. 按需加载：插件babel-plugin-import
+* 会根据组件import的模块打包加载所需的js/css，所以第3步中的引入全局样式可删除
+* 安装：`npm install react-app-rewired babel-plugin-import --save-dev`
+* 修改package.json文件
+```
+//将以下内容
+// "scripts": {
+//   "start": "react-scripts start",
+//   "build": "react-scripts build",
+//   "test": "react-scripts test",
+//   "eject": "react-scripts eject"
+// },
+//修改为：
+"scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test"
+  },
+```
+* 安装模块：`npm install customize-cra`
+* 新建一个文件：config-overrides.js
+```
+//加入以下内容：
+const {
+  override,
+  fixBabelImports
+} = require("customize-cra");
+
+module.exports = override(
+  fixBabelImports("babel-plugin-import", {
+    libraryName: "antd-mobile",
+    style: "css"
+  })
+);
+```
+* 执行`npm start`，看项目是否能正常运行
