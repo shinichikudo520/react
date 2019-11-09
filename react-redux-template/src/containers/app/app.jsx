@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import './app.css';
 import CommentAdd from '../../component/comment-add/comment-add'
 import CommentList from '../../component/comment-list/comment-list'
-import {addComment,handleDelete} from '../../redux/actions';
+import {addComment,handleDelete,getComments} from '../../redux/actions';
 class App extends Component{
     static propTypes = {
         comments:PropTypes.array.isRequired,
@@ -13,7 +13,8 @@ class App extends Component{
         handleDelete:PropTypes.func.isRequired,
     }
     componentDidMount(){
-
+        //初始化comments
+        this.props.getComments();
     }
     render(){
         const {comments,addComment,handleDelete} = this.props;
@@ -33,6 +34,7 @@ class App extends Component{
     }
 }
 export default connect(
-    state => ({comments:state}),
-    {addComment,handleDelete}
+    //state是一个对象，对应reducers.js中的每个reducer
+    state => ({comments:state.comments}),
+    {addComment,handleDelete,getComments}
 )(App);

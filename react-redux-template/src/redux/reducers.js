@@ -1,13 +1,34 @@
-import {ADD_COMMENT,DELETE_COMMENT} from './action-type';
+import { combineReducers } from 'redux'
 
-export function comments(state = [],action){
-    switch(action.type){
+import { ADD_COMMENT, DELETE_COMMENT, INIT_COMMENTS, INCREMENT, DECREMENT } from './action-type';
+
+
+function comments(state = [], action) {
+    switch (action.type) {
         case ADD_COMMENT:
-            return [action.data,...state];
+            return [action.data, ...state];
         case DELETE_COMMENT:
             console.log(action.data);
-            return state.filter((comment,index) => action.data !== index);
+            return state.filter((comment, index) => action.data !== index);
+        case INIT_COMMENTS:
+            return action.data;
         default:
             return state;
     }
 }
+
+function counter(state = 0, action) {
+    switch (action.type) {
+        case INCREMENT:
+            return state + action.data;
+        case DECREMENT:
+            return state - action.data;
+        default:
+            return state;
+
+    }
+}
+export default combineReducers({
+    comments,
+    counter
+});

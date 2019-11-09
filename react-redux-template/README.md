@@ -564,4 +564,104 @@ export const incrementAsync = (val) => {
     }
 };
 ```
+6. 多个reducer：
+* 在reducers.js中
+```
+//1. 从redux引入整合reducer的函数
+import { combineReducers } from 'redux'
+
+import { ADD_COMMENT, DELETE_COMMENT, INIT_COMMENTS, INCREMENT, DECREMENT } from './action-type';
+
+//2. reducer不要分别暴露
+function comments(state = [], action) {
+    switch (action.type) {
+        case ADD_COMMENT:
+            return [action.data, ...state];
+        case DELETE_COMMENT:
+            console.log(action.data);
+            return state.filter((comment, index) => action.data !== index);
+        case INIT_COMMENTS:
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+function counter(state = 0, action) {
+    switch (action.type) {
+        case INCREMENT:
+            return state + action.data;
+        case DECREMENT:
+            return state - action.data;
+        default:
+            return state;
+
+    }
+}
+//3. 整合reducer，然后暴露
+export default combineReducers({
+    comments,
+    counter
+});
+```
+* 在store.js中
+```
+import React from 'react';
+import { createStore, applyMiddleware } from 'redux';
+//1. 引入整合后的reducers
+import reducers from './reducers';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+//2. 创建store对象传入reducers
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+
+export default store;
+
+//3. 此时 redux向外暴露的state是一个对象(即getState()方法得到的是一个对象)
+// {counter:2,comments:[]}
+```
+* 在组件中（app.jsx）中
+```
+import React,{Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
+import './app.css';
+import CommentAdd from '../../component/comment-add/comment-add'
+import CommentList from '../../component/comment-list/comment-list'
+import {addComment,handleDelete,getComments} from '../../redux/actions';
+class App extends Component{
+    static propTypes = {
+        comments:PropTypes.array.isRequired,
+        addComment:PropTypes.func.isRequired,
+        handleDelete:PropTypes.func.isRequired,
+    }
+    componentDidMount(){
+        //初始化comments
+        this.props.getComments();
+    }
+    render(){
+        const {comments,addComment,handleDelete} = this.props;
+        return (
+            <div className='app'>
+                <h1>请发表对React的评论</h1>
+                <div className='comment'>
+                    <div className='comment-add'>
+                        <CommentAdd addComment={addComment} />
+                    </div>
+                    <div className='comment-list'>
+                        <CommentList comments={comments} handleDelete={handleDelete} />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+export default connect(
+    //state是一个对象，对应reducers.js中的每个reducer
+    state => ({comments:state.comments}),
+    {addComment,handleDelete,getComments}
+)(App);
+```
 
