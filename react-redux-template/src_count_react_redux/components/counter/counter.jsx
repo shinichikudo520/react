@@ -6,8 +6,7 @@ export default class Counter extends Component{
   static propTypes = {
     count : PropTypes.number.isRequired,
     increment : PropTypes.func.isRequired,
-    decrement : PropTypes.func.isRequired,
-    incrementAsync : PropTypes.func.isRequired,
+    decrement : PropTypes.func.isRequired
   }
   increment = () => {
     //获取下拉框的值：非受控组件
@@ -40,13 +39,11 @@ export default class Counter extends Component{
     //获取下拉框的值：非受控组件
     const val = this.select.value*1;
 
-    // setTimeout(() => {
-    //   //更新状态
-    //   this.props.increment(val);
+    setTimeout(() => {
+      //更新状态
+      this.props.increment(val);
 
-    // }, 1000);
-    //将异步行为放到redux中处理
-    this.props.incrementAsync(val);
+    }, 1000);
   }
   render(){
       const {count} = this.props;

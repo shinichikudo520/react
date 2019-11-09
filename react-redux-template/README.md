@@ -433,3 +433,135 @@ ReactDOM.render(<Provider store={store}>
 // Learn more about service workers: https://bit.ly/CRA-PWA
 
 ```
+
+### redux-thunk：解决redux不能处理异步请求的问题
+1. 安装：`npm install --save redux-thunk`
+2. 在redux中使用中间件，在store.js中修改以下内容
+```
+//1. 引入应用中间件的函数applyMiddleware
+import {createStore,applyMiddleware} from 'redux';
+//2. 引入异步中间件
+import thunk from 'redux-thunk';
+
+import {counter} from './reducers';
+
+const store = createStore(
+    counter,
+    applyMiddleware(thunk)//3. 声明应用异步的中间件
+);
+console.log(store);
+
+export default store;
+
+```
+3. ui组件counter.jsx中异步操作提取出来，修改如下：
+```
+import React,{Component} from 'react';
+import PropTypes from 'prop-types';
+
+import './counter.css';
+export default class Counter extends Component{
+  static propTypes = {
+    count : PropTypes.number.isRequired,
+    increment : PropTypes.func.isRequired,
+    decrement : PropTypes.func.isRequired,
+    //1. 定义一个异步的函数属性，由react-redux从actions中传过来
+    incrementAsync : PropTypes.func.isRequired,
+  }
+  increment = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+    // debugger
+    //更新状态
+    this.props.increment(val);
+  }
+  incrementIfOdd = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    //获取状态的初始值
+    const {count} = this.props;
+    if(count % 2 === 1){
+      //更新状态
+      this.props.increment(val);
+
+    }
+  }
+  decrement = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+   //更新状态
+   this.props.decrement(val);
+
+  }
+  incrementAsync = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    // setTimeout(() => {
+    //   //更新状态
+    //   this.props.increment(val);
+
+    // }, 1000);
+    //2. 将异步行为放到redux中处理
+    this.props.incrementAsync(val);
+  }
+  render(){
+      const {count} = this.props;
+      return (
+        <div className="Counter">
+          <p>click {count} times</p>
+          <div>
+            <select ref={select => this.select = select}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <button onClick={this.increment}>+</button>
+            <button onClick={this.decrement}>-</button>
+            <button onClick={this.incrementIfOdd}>increment if odd</button>
+            <button onClick={this.incrementAsync}>increment if async</button>
+          </div>
+        </div>
+      );
+  }
+}
+```
+4. 在容器组件app.jsx中将需要的异步action传到UI组件
+```
+import React from 'react';
+import {connect} from  'react-redux';
+
+import Counter from  '../../components/counter/counter';
+//1. 引入异步的action
+import {increment,decrement,incrementAsync} from '../../redux/actions'
+
+export default connect(
+    state => ({count:state}),
+    {increment,decrement,incrementAsync}//2. 将异步的action传到ui组件中
+  )(Counter);
+```
+5. actions.js中定义异步action
+```
+/**
+ * 包含所有actions creator
+ */
+import {INCREMENT,DECREMENT} from './action-types';
+
+//增加，同步action返回的是一个对象
+export const increment = (val) => ({type:INCREMENT,data:val});
+//减少，同步action返回的是一个对象
+export const decrement = (val) => ({type:DECREMENT,data:val});
+//1. 异步action返回的是函数
+export const incrementAsync = (val) => {
+    return dispatch => {
+        //异步代码
+        setTimeout(() => {
+            //1s后才分发一个同步的action(这里是增加的功能，所以直接调用增加的同步action即可，如果需要的功能没有，还需自定义功能的一个同步action)
+            dispatch(increment(val));
+        }, 1000);
+    }
+};
+```
+
