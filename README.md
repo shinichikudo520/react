@@ -564,4 +564,75 @@ export const incrementAsync = (val) => {
     }
 };
 ```
+6. 多个reducer：
+* 在reducers.js中
+```
+//1. 从redux引入整合reducer的函数
+import { combineReducers } from 'redux'
 
+import { ADD_COMMENT, DELETE_COMMENT, INIT_COMMENTS, INCREMENT, DECREMENT } from './action-type';
+
+//2. reducer不要分别暴露
+function comments(state = [], action) {
+    switch (action.type) {
+        case ADD_COMMENT:
+            return [action.data, ...state];
+        case DELETE_COMMENT:
+            console.log(action.data);
+            return state.filter((comment, index) => action.data !== index);
+        case INIT_COMMENTS:
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+function counter(state = 0, action) {
+    switch (action.type) {
+        case INCREMENT:
+            return state + action.data;
+        case DECREMENT:
+            return state - action.data;
+        default:
+            return state;
+
+    }
+}
+//3. 整合reducer，然后暴露
+export default combineReducers({
+    comments,
+    counter
+});
+```
+* 在store.js中
+```
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+//1. 引入整合后的reducers
+import reducers from './reducers';
+//2. 创建store对象传入reducers
+const store = createStore(
+    reducers,
+    applyMiddleware(thunk) //应用异步的中间件
+);
+console.log(store);
+
+export default store;
+
+//3. 此时 redux向外暴露的state是一个对象(即getState()方法得到的是一个对象)
+// {counter:2,comments:[]}
+```
+* 在组件中（app.jsx）中
+```
+import React from 'react';
+import {connect} from  'react-redux';
+
+import Counter from  '../../components/counter/counter';
+import {increment,decrement,incrementAsync} from '../../redux/actions'
+
+export default connect(
+    //1. state是一个对象，对应reducers.js中的每个reducer
+    state => ({count:state.counter}),
+    {increment,decrement,incrementAsync}
+  )(Counter);
+```
