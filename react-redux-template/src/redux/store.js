@@ -1,13 +1,10 @@
+import React from 'react';
 import {createStore,applyMiddleware} from 'redux';
+import {comments} from './reducers';
 import thunk from 'redux-thunk';
-import { composeWithDevTools} from 'redux-devtools-extension'
+import {composeWithDevTools} from 'redux-devtools-extension'
 
-import {counter} from './reducers';
 
-const store = createStore(
-    counter,
-    composeWithDevTools(applyMiddleware(thunk))//应用异步的中间件
-);
-console.log(store);
+const store = createStore(comments,composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;

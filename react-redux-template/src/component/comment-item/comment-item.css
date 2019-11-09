@@ -1,0 +1,17 @@
+.commentItem{
+    width: 400px;
+    position: relative;
+    border: .0625rem solid grey;
+    padding: .3125rem;
+}
+.userInfo{
+    margin-bottom: 1.25rem;
+}
+.userInfo button{
+    position: absolute;
+    right: 1%;
+    color: blue;
+}
+.userComment{
+    text-indent: 2em;
+}

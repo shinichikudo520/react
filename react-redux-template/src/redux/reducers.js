@@ -1,16 +1,13 @@
-/**
- * 包含n个reducer函数的模块
- */
-import {INCREMENT,DECREMENT} from './action-types';
+import {ADD_COMMENT,DELETE_COMMENT} from './action-type';
 
-export function counter(state = 0,action){
+export function comments(state = [],action){
     switch(action.type){
-        case INCREMENT:
-            return state + action.data;
-        case DECREMENT:
-            return state - action.data;
+        case ADD_COMMENT:
+            return [action.data,...state];
+        case DELETE_COMMENT:
+            console.log(action.data);
+            return state.filter((comment,index) => action.data !== index);
         default:
             return state;
-            
     }
 }

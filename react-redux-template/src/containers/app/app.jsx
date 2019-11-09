@@ -1,10 +1,38 @@
-import React from 'react';
-import {connect} from  'react-redux';
+import React,{Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-import Counter from  '../../components/counter/counter';
-import {increment,decrement,incrementAsync} from '../../redux/actions'
+import './app.css';
+import CommentAdd from '../../component/comment-add/comment-add'
+import CommentList from '../../component/comment-list/comment-list'
+import {addComment,handleDelete} from '../../redux/actions';
+class App extends Component{
+    static propTypes = {
+        comments:PropTypes.array.isRequired,
+        addComment:PropTypes.func.isRequired,
+        handleDelete:PropTypes.func.isRequired,
+    }
+    componentDidMount(){
 
+    }
+    render(){
+        const {comments,addComment,handleDelete} = this.props;
+        return (
+            <div className='app'>
+                <h1>请发表对React的评论</h1>
+                <div className='comment'>
+                    <div className='comment-add'>
+                        <CommentAdd addComment={addComment} />
+                    </div>
+                    <div className='comment-list'>
+                        <CommentList comments={comments} handleDelete={handleDelete} />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
 export default connect(
-    state => ({count:state}),
-    {increment,decrement,incrementAsync}
-  )(Counter);
+    state => ({comments:state}),
+    {addComment,handleDelete}
+)(App);
