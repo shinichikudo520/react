@@ -22,7 +22,7 @@ export function counter(state = 0,action){
 ```
 * 创建一个action-types.js，内容如下
 
-````
+```
 /**
  * 包含所有action type的常量字符
  */
