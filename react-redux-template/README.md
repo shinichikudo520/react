@@ -169,8 +169,267 @@ store.subscribe(render);
 ```
 import {Provider} from 'react-redux';
 
+//将store对象的管理权交给react-redux
 ReactDOM.render(<Provider store={store}>
    <App/>
 </Provider>, document.getElementById('root'));
 ```
+3. 至此，App组件就没有了store对象，做以下修改:
+* 将App原本需要靠store对象传递的三个数据都作为App组件的属性接收
+* 安装prop-types：`npm install prop-types`
+```
+import React,{Component} from 'react';
+//1. 引入propTypes
+import PropTypes from 'prop-types';
 
+import './App.css';
+
+export default class App extends Component{
+  //2. 将store对象提供的数据都定义为属性
+  static propTypes = {
+    count : PropTypes.number.isRequired,
+    increment : PropTypes.func.isRequired,
+    decrement : PropTypes.func.isRequired
+  }
+  increment = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+    // debugger
+    //更新状态
+    this.props.increment(val);
+  }
+  incrementIfOdd = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    //获取状态的初始值
+    const count = this.props.store.getState();
+    if(count % 2 === 1){
+      //更新状态
+      this.props.increment(val);
+    }
+  }
+  decrement = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+   //更新状态
+   this.props.decrement(val);
+  }
+  incrementAsync = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    setTimeout(() => {
+      //更新状态
+      this.props.increment(val);
+    }, 1000);
+  }
+  render(){
+      const {count} = this.props;
+      return (
+        <div className="App">
+          <p>click {count} times</p>
+          <div>
+            <select ref={select => this.select = select}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <button onClick={this.increment}>+</button>
+            <button onClick={this.decrement}>-</button>
+            <button onClick={this.incrementIfOdd}>increment if odd</button>
+            <button onClick={this.incrementAsync}>increment if async</button>
+          </div>
+        </div>
+      );
+  }
+}
+```
+4. 连接App组件和redux
+```
+import React,{Component} from 'react';
+import PropTypes from 'prop-types';
+//1. 引入connect 连接App和redux
+import {connect} from  'react-redux';
+
+import './App.css';
+//3. 引入redux中App需要的函数
+import {increment,decrement} from '../../redux/actions'
+//2. 不再直接暴露App
+class App extends Component{
+  static propTypes = {
+    count : PropTypes.number.isRequired,
+    increment : PropTypes.func.isRequired,
+    decrement : PropTypes.func.isRequired
+  }
+  increment = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+    // debugger
+    //更新状态
+    this.props.increment(val);
+  }
+  incrementIfOdd = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    //获取状态的初始值
+    const {count} = this.props;
+    if(count % 2 === 1){
+      //更新状态
+      this.props.increment(val);
+
+    }
+  }
+  decrement = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+   //更新状态
+   this.props.decrement(val);
+
+  }
+  incrementAsync = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    setTimeout(() => {
+      //更新状态
+      this.props.increment(val);
+
+    }, 1000);
+  }
+  render(){
+      const {count} = this.props;
+      return (
+        <div className="App">
+          <p>click {count} times</p>
+          <div>
+            <select ref={select => this.select = select}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <button onClick={this.increment}>+</button>
+            <button onClick={this.decrement}>-</button>
+            <button onClick={this.incrementIfOdd}>increment if odd</button>
+            <button onClick={this.incrementAsync}>increment if async</button>
+          </div>
+        </div>
+      );
+  }
+}
+//4. 暴露一个connect包装后的App，connect(param1,param2)，param1是一个回调函数，用来传递数值属性，param2是一个对象，用来传递函数属性，将redux中的函数increment，decrement传给App，由react-redux分发///（dispatch）给redux做状态更新
+//param2 ： {increment:increment,decrement:decrement}其中key对应App中属性的名称，value对应redux中actions的函数名称
+export default connect(
+  state => ({count:state}),
+  {increment,decrement}
+)(App);
+```
+5. react-redux将components又细分为components（UI组件）和containers（容器组件），UI组件即只包含react代码，其中不涉及任何react-redux的API，容器组件，则专门处理react-redux的API
+* ui组件放在components文件夹下，容器组件放在containers文件夹下
+* ui组件拆分内容如下：counter.jsx文件（/src/components/counter/counter.jsx）
+```
+import React,{Component} from 'react';
+import PropTypes from 'prop-types';
+
+import './counter.css';
+export default class Counter extends Component{
+  static propTypes = {
+    count : PropTypes.number.isRequired,
+    increment : PropTypes.func.isRequired,
+    decrement : PropTypes.func.isRequired
+  }
+  increment = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+    // debugger
+    //更新状态
+    this.props.increment(val);
+  }
+  incrementIfOdd = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    //获取状态的初始值
+    const {count} = this.props;
+    if(count % 2 === 1){
+      //更新状态
+      this.props.increment(val);
+
+    }
+  }
+  decrement = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+   //更新状态
+   this.props.decrement(val);
+
+  }
+  incrementAsync = () => {
+    //获取下拉框的值：非受控组件
+    const val = this.select.value*1;
+
+    setTimeout(() => {
+      //更新状态
+      this.props.increment(val);
+
+    }, 1000);
+  }
+  render(){
+      const {count} = this.props;
+      return (
+        <div className="Counter">
+          <p>click {count} times</p>
+          <div>
+            <select ref={select => this.select = select}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <button onClick={this.increment}>+</button>
+            <button onClick={this.decrement}>-</button>
+            <button onClick={this.incrementIfOdd}>increment if odd</button>
+            <button onClick={this.incrementAsync}>increment if async</button>
+          </div>
+        </div>
+      );
+  }
+}
+
+```
+* 容器组件拆分内容如下：app.jsx文件（/src/containers/app/app.jsx）
+```
+import React from 'react';
+import {connect} from  'react-redux';
+
+import Counter from  '../../components/counter/counter';
+import {increment,decrement} from '../../redux/actions'
+
+export default connect(
+    state => ({count:state}),
+    {increment,decrement}
+  )(Counter);
+```
+* index.js中引用关系作出修改：
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+
+import './index.css';
+//1. 主要是app.jsx文件的位置修改
+import App from './containers/app/app';
+import store from './redux/store'
+
+//将store的使用权都交给Provider
+ReactDOM.render(<Provider store={store}>
+   <App/>
+</Provider>, document.getElementById('root'));
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+
+```

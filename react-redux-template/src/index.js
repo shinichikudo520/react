@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
 import './index.css';
-import App from './components/app/App';
+import App from './containers/app/app';
 import store from './redux/store'
 
 //将store的使用权都交给Provider

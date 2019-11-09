@@ -1,27 +1,30 @@
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
 
-import './App.css';
-import * as actions from '../../redux/actions';
-export default class App extends Component{
-  state = {
-    count:0
+import './counter.css';
+export default class Counter extends Component{
+  static propTypes = {
+    count : PropTypes.number.isRequired,
+    increment : PropTypes.func.isRequired,
+    decrement : PropTypes.func.isRequired
   }
   increment = () => {
     //获取下拉框的值：非受控组件
     const val = this.select.value*1;
     // debugger
     //更新状态
-    this.props.store.dispatch(actions.increment(val));
+    this.props.increment(val);
   }
   incrementIfOdd = () => {
     //获取下拉框的值：非受控组件
     const val = this.select.value*1;
 
     //获取状态的初始值
-    const count = this.props.store.getState();
+    const {count} = this.props;
     if(count % 2 === 1){
       //更新状态
-      this.props.store.dispatch(actions.increment(val));
+      this.props.increment(val);
+
     }
   }
   decrement = () => {
@@ -29,7 +32,8 @@ export default class App extends Component{
     const val = this.select.value*1;
 
    //更新状态
-   this.props.store.dispatch(actions.decrement(val));
+   this.props.decrement(val);
+
   }
   incrementAsync = () => {
     //获取下拉框的值：非受控组件
@@ -37,13 +41,14 @@ export default class App extends Component{
 
     setTimeout(() => {
       //更新状态
-      this.props.store.dispatch(actions.increment(val));
+      this.props.increment(val);
+
     }, 1000);
   }
   render(){
-      const count = this.props.store.getState();
+      const {count} = this.props;
       return (
-        <div className="App">
+        <div className="Counter">
           <p>click {count} times</p>
           <div>
             <select ref={select => this.select = select}>
