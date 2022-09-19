@@ -21,9 +21,7 @@
         const vDOM = (
             <ul>
                 {
-                    arr.map((item,index) => {
-                       return <li key={index}>{item}</li>
-                    })
+                    arr.map((item,index) => <li key={index}>{item}</li>)
                 }
             </ul>
         );
