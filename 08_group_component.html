@@ -16,7 +16,6 @@
   </head>
   <body>
     <div id="example1"></div>
-    <div id="example2"></div>
     <script type="text/babel">
       //定义组件
       class App extends React.Component {
@@ -65,7 +64,7 @@
           //1.4 调用父组件传过来的函数
           //添加
           this.props.addTodo(todo);
-          //清楚输入
+          // 清除输入
           this.input.value = '';
         }
         render() {
