@@ -18,7 +18,7 @@
     <div id="example1"></div>
     <div id="example2"></div>
     <script type="text/babel">
-        //定义组件
+        // 定义组件
         class LoginForm extends React.Component{
             constructor(props) {
                 super(props);
@@ -31,8 +31,8 @@
                 }
             }
             render(){
-                //1. 受控组件，即密码框的写法，用state保存数据，用onChange事件监听数据，更新state
-                //2. 非受控组件，即用户名框的写法，用refs记录DOM，从而获取DOM的值
+                // 1. 受控组件，即密码框的写法，用state保存数据，用onChange事件监听数据，更新state
+                // 2. 非受控组件，即用户名框的写法，用refs记录DOM，从而获取DOM的值
                 return (
                     <form action='#' onSubmit={this.handleSubmit}>
                         用户名：<input type="text" ref={input => this.nameInput = input}/> 
@@ -45,20 +45,20 @@
             handleSubmit(event){
                 const name = this.nameInput.value;
                 console.log(name,this.state.pwd);
-                //阻止事件的默认行为
+                // 阻止事件的默认行为
                 event.preventDefault();
             }
             handleChange(event){
-                //读取输入的值
+                // 读取输入的值
                 const pwd = event.target.value;
 
-                //更新pwd的状态
+                // 更新pwd的状态
                 this.setState({
                     pwd
                 });
             }
         }
-        //渲染组件
+        // 渲染组件
         ReactDOM.render(<LoginForm />,document.getElementById('example1'));
     </script>
 </body>
