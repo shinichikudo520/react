@@ -43,10 +43,10 @@
                 );
             }
             handleSubmit(event){
-                const name = this.nameInput.value;
-                console.log(name,this.state.pwd);
                 // 阻止事件的默认行为
                 event.preventDefault();
+                const name = this.nameInput.value;
+                console.log(name,this.state.pwd);
             }
             handleChange(event){
                 // 读取输入的值
