@@ -1,9 +1,0 @@
-.app{
-    padding: 1.25rem;
-}
-.comment{
-    display: flex;
-}
-.comment>div{
-    flex: 1;
-}
