@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!-- React 的核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <!-- 提供与 DOM 相关的功能 -->
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- Babel 可以将 ES6 代码转为 ES5 代码 ,集成了JSX的语法-->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <!-- 检查react组件属性props的类型 -->
+    <script src="./js/prop-types.js"></script>
+  </head>
+  <body>
+    <div id="example1"></div>
+    <!-- 室内的就开始 -->
+    <div id="example2"></div>
+    <script type="text/babel">
+      //定义组件
+      class MyComponent extends React.Component {
+        constructor(props) {
+          super(props);
+          this.showInput = this.showInput.bind(this);
+          this.handlerBlur = this.handlerBlur.bind(this);
+        }
+        showInput() {
+          //1. refs标记react组件内的DOM元素
+          const input = this.refs.content; // 写法1的读取数据的方式
+          // alert(input.value);
+          alert(this.input.value); // 写法2的读取数据的方式
+        }
+        handlerBlur(event) {
+          alert(event.target.value);
+        }
+        render() {
+          return (
+            <div>
+              <h4>写法1</h4>
+              <input type="text" ref="content" />
+              <h4>写法2</h4>
+              <input type="text" ref={(input) => (this.input = input)} />
+              &nbsp; &nbsp;
+              <button onClick={this.showInput}>提示输入</button>
+              &nbsp; &nbsp;
+              <input
+                type="text"
+                placeholder="失去焦点提示内容"
+                onBlur={this.handlerBlur}
+              />
+            </div>
+          );
+        }
+      }
+
+      //使用组件
+      ReactDOM.render(<MyComponent />, document.getElementById('example1'));
+    </script>
+  </body>
+</html>

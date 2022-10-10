@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+  /* margin-left: 25%; */
+}
+.content{
+  overflow: hidden;
+  margin-left: 25%;
+}
+.App h1{
+  margin-left: -20%;
+  margin-bottom:3%;
+}
+.content>div{
+  float: left;
+  width: 23%;
+}
+.content a{
+  display: block;
+  padding: 8px;
+  border: 1px solid grey;
+  text-decoration: none;
+}
+.selected{
+  color: red;
+}
