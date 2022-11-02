@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import Demo from './components/demo';
+import Main from './components/main';
 
 export default class App extends Component {
   render() {
     return (
       <div id="app">
-        <Demo />
+        <Main />
       </div>
     );
   }

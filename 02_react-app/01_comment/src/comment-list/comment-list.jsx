@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import "./commentList.css";
-import ComponentItem from "../comment-item/comment-item";
+import './commentList.css';
+import ComponentItem from '../comment-item/comment-item';
 
 export default class ComponentList extends React.Component {
   // 给组件类指定属性
@@ -18,7 +18,7 @@ export default class ComponentList extends React.Component {
   }
   render() {
     const { comments } = this.props;
-    const display = comments.length === 0 ? "block" : "none";
+    const display = comments.length === 0 ? 'block' : 'none';
     return (
       <div className="col-md-8">
         <h3 className="reply">评论回复：</h3>
