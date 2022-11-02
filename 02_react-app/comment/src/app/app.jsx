@@ -1,16 +1,27 @@
 import React from 'react';
+
 import ComponentAdd from '../comment-add/comment-add';
 import ComponentList from '../comment-list/comment-list';
 export default class App extends React.Component {
-  state = {
-    comments: [
-      { userName: 'aaa', content: 'React挺好的!' },
-      { userName: 'nnn', content: 'React太难了!' },
-    ],
-  };
   constructor(props) {
     super(props);
+    this.state = {
+      comments: [
+        { userName: 'aaa', content: 'React挺好的!' },
+        { userName: 'nnn', content: 'React太难了!' },
+      ],
+    };
   }
+  addComment = (userName, content) => {
+    const { comments } = this.state;
+    comments.unshift({ userName, content });
+    this.setState({ comments });
+  };
+  removeComment = (index) => {
+    const { comments } = this.state;
+    comments.splice(index, 1);
+    this.setState({ comments });
+  };
   render() {
     const { comments } = this.state;
     return (
@@ -26,8 +37,11 @@ export default class App extends React.Component {
             </div>
           </header>
           <div className="container">
-            <ComponentAdd></ComponentAdd>
-            <ComponentList comments={comments}></ComponentList>
+            <ComponentAdd addComment={this.addComment}></ComponentAdd>
+            <ComponentList
+              comments={comments}
+              removeComment={this.removeComment}
+            ></ComponentList>
           </div>
         </div>
       </div>
