@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './commentList.css';
 
 export default class ComponentList extends React.Component {
-  constructor() {}
+  // constructor() {}
   render() {
     return (
       <div className="col-md-8">
