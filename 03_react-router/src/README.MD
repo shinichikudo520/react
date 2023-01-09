@@ -51,3 +51,27 @@
        <Redirect to="/about"></Redirect>
    </Switch>
    ```
+
+3. 传参
+
+   3.1 在**react\03_react-router\src\views\messages\messages.jsx**中
+
+   - 使用`:paramsName`的方式传递参数
+
+   ```
+       // 声明
+       <Route path={`/home/message/messagedetails/:id`} component={MessageDetail} />
+       // 传参
+       <a href={`/home/message/messagedetails/${mes.id}`}>
+            {mes.title}
+        </a>
+   ```
+
+   3.2 在**react\03_react-router\src\views\message_detail\message_detail.jsx**中
+
+   - 使用`this.props.match`读取传递的参数
+
+   ```
+        // 读取
+        const { id } = this.props.match.params;
+   ```
