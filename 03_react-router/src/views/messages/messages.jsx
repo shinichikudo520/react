@@ -38,18 +38,32 @@ export default class Messages extends Component {
                 </p>
                 <p>
                   {/* 路由跳转不会发生请求 */}
-                  <span>路由跳转：params参数</span>
+                  <span>路由跳转：params 参数</span>
                   <MyNavLink
-                    to={`/home/message/messagedetails/${mes.id}/${mes.title}`}
+                    to={`/home/message/messagedetails/${mes.id}/${true}`}
                   >
                     {mes.title}
                   </MyNavLink>
                   &nbsp;
                 </p>
                 <p>
-                  <span>路由跳转：search参数</span>
+                  <span>路由跳转：search 参数</span>
                   <MyNavLink
-                    to={`/home/message/messagedetails/?id=${mes.id}&title=${mes.title}`}
+                    to={`/home/message/messagedetails/?id=${
+                      mes.id
+                    }&isSearch=${true}`}
+                  >
+                    {mes.title}
+                  </MyNavLink>
+                  &nbsp;
+                </p>
+                <p>
+                  <span>路由跳转：state 参数</span>
+                  <MyNavLink
+                    to={{
+                      pathName: "/home/message/messagedetails",
+                      state: { id: mes.id, isState: true },
+                    }}
                   >
                     {mes.title}
                   </MyNavLink>
@@ -70,10 +84,15 @@ export default class Messages extends Component {
           <Switch>
             {/* params 参数匹配：路由路径的声明方式 */}
             <Route
-              path={`/home/message/messagedetails/:id/:title`}
+              path={`/home/message/messagedetails/:id/:isParams`}
               component={MessageDetail}
             />
-            {/* search 参数匹配：路由路径的声明方式 */}
+            {/* search 参数匹配：路由路径的声明方式：无需声明 */}
+            <Route
+              path={`/home/message/messagedetails`}
+              component={MessageDetail}
+            />
+            {/* state 参数匹配：路由路径的声明方式：无需声明 */}
             <Route
               path={`/home/message/messagedetails`}
               component={MessageDetail}

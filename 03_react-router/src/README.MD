@@ -86,14 +86,14 @@
 
    3.2 `search`传参
 
-   - 声明与传参：`使用/?search1=value1&search2=value`传参, 在**react\03_react-router\src\views\messages\messages.jsx**中
+   - 声明与传参：使用`?search1=value1&search2=value`传参, 在**react\03_react-router\src\views\messages\messages.jsx**中
 
    ```
        // 不需要特殊声明
        <Route path={`/home/message/messagedetails`} component={MessageDetail} />
        // 传参
        <MyNavLink
-        to={`/home/message/messagedetails/?id=${mes.id}`}
+        to={`/home/message/messagedetails?id=${mes.id}`}
         >
         {mes.title}
         </MyNavLink>
@@ -104,7 +104,7 @@
        <Route path={`/home/message/messagedetails`} component={MessageDetail} />
        // 传参
        <MyNavLink
-        to={`/home/message/messagedetails/?id=${mes.id}&title=${mes.title}`}
+        to={`/home/message/messagedetails?id=${mes.id}&title=${mes.title}`}
         >
         {mes.title}
         </MyNavLink>
@@ -122,6 +122,36 @@
         const { id } = this.props.match.params;
 
    ```
+
+   3.3 `state`传参
+
+   - 声明与传参：使用`to={{path:string,state:{s1:v1,s2:v2}}}`传参, 在**react\03_react-router\src\views\messages\messages.jsx**中
+
+   ```
+       // 不需要特殊声明
+       <Route path={`/home/message/messagedetails`} component={MessageDetail} />
+       // 传参
+       <MyNavLink
+        to={
+            {
+                path: "/home/message/messagedetails",
+                state: { id: mes.id, isState: true },
+            }
+        }
+        >
+        {mes.title}
+        </MyNavLink>
+   ```
+
+   - 读取：使用`this.props.location.state`读取传递的参数, 在**react\03_react-router\src\views\message_detail\message_detail.jsx**中
+
+   ```
+        // 读取
+        id = this.props.location.state.id;
+
+   ```
+
+   - 不清楚缓存的情况下, 刷新, `state`不会丢失, 整个`location`存了一份在浏览器内存(`history`对象)中
 
 4. 函数传参：在**react\03_react-router\src\views\messages\messages.jsx**中
 

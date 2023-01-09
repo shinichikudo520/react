@@ -15,13 +15,21 @@ export default class MessageDetail extends Component {
     console.log(this.props);
     // 获取params参数
     let id = 1;
-    if (this.props.match.params.id) {
+
+    if (this.props.match.params.isParams) {
+      // 接收 params 参数
       id = this.props.match.params.id;
     } else if (this.props.location.search) {
+      // 接收 search 参数
       const search = this.props.location.search;
       const info = qs.parse(search.slice(1));
       console.log("info", info);
-      id = info.id;
+      if (info.isSearch) {
+        id = info.id;
+      }
+    } else if (this.props.location.state && this.props.location.state.isState) {
+      // 接收 state 参数
+      id = this.props.location.state.id;
     }
     // 获取search参数
     const message = this.state.messageDetails.find((m) => m.id == id);
