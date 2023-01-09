@@ -61,7 +61,20 @@ export default class Messages extends Component {
                   <span>路由跳转：state 参数</span>
                   <MyNavLink
                     to={{
-                      pathName: "/home/message/messagedetails",
+                      path: "/home/message/messagedetails",
+                      state: { id: mes.id, isState: true },
+                    }}
+                  >
+                    {mes.title}
+                  </MyNavLink>
+                  &nbsp;
+                </p>
+                <p>
+                  <span>路由跳转的 replace 模式</span>
+                  <MyNavLink
+                    replace={true}
+                    to={{
+                      path: "/home/message/messagedetails",
                       state: { id: mes.id, isState: true },
                     }}
                   >
@@ -93,6 +106,11 @@ export default class Messages extends Component {
               component={MessageDetail}
             />
             {/* state 参数匹配：路由路径的声明方式：无需声明 */}
+            <Route
+              path={`/home/message/messagedetails`}
+              component={MessageDetail}
+            />
+            {/* 路由跳转的 replace 模式 */}
             <Route
               path={`/home/message/messagedetails`}
               component={MessageDetail}

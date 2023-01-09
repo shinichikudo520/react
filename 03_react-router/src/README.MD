@@ -238,3 +238,30 @@
    ```
 
    6.3 存在嵌套路由时不要随意开启精准匹配，比如【message】组件->【messageDetail】组件, 需要传递一个`id`作为参数, 此时无法精准匹配, 所以非必要不开启
+
+7. 路由跳转的 `push`与`replace` 模式
+   7.1 `push`模式【默认】, `history` 执行 `push` 方法
+
+   ```
+   <MyNavLink
+    to={{
+        path: "/home/message/messagedetails",
+        state: { id: mes.id, isState: true },
+    }}
+    >
+    {mes.title}
+    </MyNavLink>
+   ```
+
+   7.1 开启`replace`模式, `history` 执行 `replace` 方法
+
+   ```
+   <MyNavLink replace
+    to={{
+        path: "/home/message/messagedetails",
+        state: { id: mes.id, isState: true },
+    }}
+    >
+    {mes.title}
+    </MyNavLink>
+   ```
