@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import "./messages.css";
 import MyNavLink from "../../components/myNavLink/myNavLink";
@@ -28,17 +28,33 @@ export default class Messages extends Component {
           {this.state.messageArr.map((mes, index) => {
             return (
               <li key={index}>
-                {/* 页面跳转会发生请求 */}
-                <span>页面跳转</span>
-                <a href={`/home/messages/messagedetails/${mes.id}`}>
-                  {mes.title}
-                </a>
-                {/* 路由跳转不会发生请求 */}
-                <span>路由跳转</span>
-                <MyNavLink to={`/home/message/messagedetails/${mes.id}`}>
-                  {mes.title}
-                </MyNavLink>
-                &nbsp;
+                <p>
+                  {" "}
+                  {/* 页面跳转会发生请求 */}
+                  <span>页面跳转</span>
+                  <a href={`/home/messages/messagedetails/${mes.id}`}>
+                    {mes.title}
+                  </a>
+                </p>
+                <p>
+                  {/* 路由跳转不会发生请求 */}
+                  <span>路由跳转：params参数</span>
+                  <MyNavLink
+                    to={`/home/message/messagedetails/${mes.id}/${mes.title}`}
+                  >
+                    {mes.title}
+                  </MyNavLink>
+                  &nbsp;
+                </p>
+                <p>
+                  <span>路由跳转：search参数</span>
+                  <MyNavLink
+                    to={`/home/message/messagedetails/?id=${mes.id}&title=${mes.title}`}
+                  >
+                    {mes.title}
+                  </MyNavLink>
+                  &nbsp;
+                </p>
                 <button onClick={() => this.push(mes.id)}>push查看</button>
                 <button onClick={() => this.replace(mes.id)}>
                   replace查看
@@ -51,10 +67,18 @@ export default class Messages extends Component {
         <button onClick={this.goForward}>前进</button>
         <button onClick={this.baidu}>百度</button>
         <div>
-          <Route
-            path={`/home/message/messagedetails/:id`}
-            component={MessageDetail}
-          />
+          <Switch>
+            {/* params 参数匹配：路由路径的声明方式 */}
+            <Route
+              path={`/home/message/messagedetails/:id/:title`}
+              component={MessageDetail}
+            />
+            {/* search 参数匹配：路由路径的声明方式 */}
+            <Route
+              path={`/home/message/messagedetails`}
+              component={MessageDetail}
+            />
+          </Switch>
         </div>
       </div>
     );

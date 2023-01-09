@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import qs from "querystring";
 
 export default class MessageDetail extends Component {
   state = {
@@ -12,7 +13,17 @@ export default class MessageDetail extends Component {
   render() {
     //获取路由携带的参数
     console.log(this.props);
-    const { id } = this.props.match.params;
+    // 获取params参数
+    let id = 1;
+    if (this.props.match.params.id) {
+      id = this.props.match.params.id;
+    } else if (this.props.location.search) {
+      const search = this.props.location.search;
+      const info = qs.parse(search.slice(1));
+      console.log("info", info);
+      id = info.id;
+    }
+    // 获取search参数
     const message = this.state.messageDetails.find((m) => m.id == id);
     return (
       <div className="MessageDetail">

@@ -54,9 +54,9 @@
 
 3. 通过路由传参
 
-   3.1 在**react\03_react-router\src\views\messages\messages.jsx**中
+   3.1 `params`传参
 
-   - 使用`:paramsName`的方式传递参数
+   - 声明与传参：使用`:paramsName`的方式传递参数, 在**react\03_react-router\src\views\messages\messages.jsx**中
 
    ```
        // 声明
@@ -77,13 +77,50 @@
 
    ```
 
-   3.2 在**react\03_react-router\src\views\message_detail\message_detail.jsx**中
-
-   - 使用`this.props.match`读取传递的参数
+   - 读取：使用`this.props.match.params`读取传递的参数, 在**react\03_react-router\src\views\message_detail\message_detail.jsx**中
 
    ```
         // 读取
         const { id } = this.props.match.params;
+   ```
+
+   3.2 `search`传参
+
+   - 声明与传参：`使用/?search1=value1&search2=value`传参, 在**react\03_react-router\src\views\messages\messages.jsx**中
+
+   ```
+       // 不需要特殊声明
+       <Route path={`/home/message/messagedetails`} component={MessageDetail} />
+       // 传参
+       <MyNavLink
+        to={`/home/message/messagedetails/?id=${mes.id}`}
+        >
+        {mes.title}
+        </MyNavLink>
+
+
+        /** 多个参数 */
+        // 不需要特殊声明
+       <Route path={`/home/message/messagedetails`} component={MessageDetail} />
+       // 传参
+       <MyNavLink
+        to={`/home/message/messagedetails/?id=${mes.id}&title=${mes.title}`}
+        >
+        {mes.title}
+        </MyNavLink>
+
+   ```
+
+   - 读取：使用`this.props.location.search`读取传递的参数, 在**react\03_react-router\src\views\message_detail\message_detail.jsx**中
+
+   ```
+        import qs from "querystring";
+        // 读取
+        const search = this.props.location.search;
+        // 需要通过 querystring 解析 search字符串参数
+        const info = qs.parse(search.slice(1));
+        const { id } = this.props.match.params;
+
    ```
 
 4. 函数传参：在**react\03_react-router\src\views\messages\messages.jsx**中
