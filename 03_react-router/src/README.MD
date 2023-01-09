@@ -162,7 +162,7 @@
     <button onClick={() => this.replace(mes.id)}>
    ```
 
-5. `props`中的`history`对象：在**react\03_react-router\src\views\messages\messages.jsx**中
+5. 编程式路由导航：`props`中的`history`对象：在**react\03_react-router\src\views\messages\messages.jsx**中
 
    5.1 `push`：新增一个路由跳转记录
 
@@ -192,11 +192,19 @@
     };
    ```
 
-   5.3 `goForward`: 前进到下一个路由历史记录
+   5.4 `goForward`: 前进到下一个路由历史记录
 
    ```
    goForward = () => {
         this.props.history.goForward();
+    };
+   ```
+
+   5.4 `go`: 前进到某一个路由历史记录
+
+   ```
+   go = (index:number) => {
+        this.props.history.go(index);
     };
    ```
 
