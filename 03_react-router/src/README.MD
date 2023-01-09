@@ -159,3 +159,5 @@
 
    <Route exact path="/home/a" component={Home}></Route>
    ```
+
+   6.3 存在嵌套路由时不要随意开启精准匹配，比如【message】组件->【messageDetail】组件, 需要传递一个`id`作为参数, 此时无法精准匹配, 所以非必要不开启
