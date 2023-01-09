@@ -62,9 +62,19 @@
        // 声明
        <Route path={`/home/message/messagedetails/:id`} component={MessageDetail} />
        // 传参
-       <a href={`/home/message/messagedetails/${mes.id}`}>
+       <NavLink to={`/home/message/messagedetails/${mes.id}`}>
             {mes.title}
-        </a>
+        </NavLink>
+
+
+        /** 多个参数 */
+        // 声明
+       <Route path={`/home/message/messagedetails/:id/:title`} component={MessageDetail} />
+       // 传参
+       <NavLink to={`/home/message/messagedetails/${mes.id}/${mes.title}`}>
+            {mes.title}
+        </NavLink>
+
    ```
 
    3.2 在**react\03_react-router\src\views\message_detail\message_detail.jsx**中
@@ -123,7 +133,7 @@
     };
    ```
 
-6. 路由的模糊匹配与京准备匹配
+6. 路由的模糊匹配与精准匹配
 
    6.1 模糊匹配【默认】
 
