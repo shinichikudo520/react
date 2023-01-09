@@ -39,7 +39,7 @@
    - 使用`<Switch></Switch>`声明路由切换
 
    - 使用`<Route path="/about" component={About}></Route>`声明路由组件, `path="/about"`匹配`NavLink`的路由路径, `component={About}`指定路由匹配的组件
-   - 使用`<Redirect to="/about"></Redirect>`重定向根路由跳转的路由路径
+   - 使用`<Redirect to="/about"></Redirect>`重定向, 当路由无法匹配正确的组件时, 指定默认的跳转组件
 
    ```
    import { NavLink, Switch, Route, Redirect } from "react-router-dom";
