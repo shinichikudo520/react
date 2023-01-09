@@ -122,3 +122,40 @@
         this.props.history.goForward();
     };
    ```
+
+6. 路由的模糊匹配与京准备匹配
+
+   6.1 模糊匹配【默认】
+
+   - 【输入路径】必须包含【匹配路径】，【输入路径】可以多给，但是不能少给
+   - 且顺序要一样
+
+   ```
+   // 可以匹配成功
+   <NavLink to=`/home/a`></NavLink>
+   <NavLink to=`/home/a/b`></NavLink>
+   // 无法匹配成功
+   <NavLink to=`/home`></NavLink>
+   <NavLink to=`/a/home`></NavLink>
+   <NavLink to=`/a/home/b`></NavLink>
+
+
+   <Route path="/home/a" component={Home}></Route>
+   ```
+
+   6.2 开启精准匹配：`exact`
+
+   - 只有【输入路径】与【匹配路径】完全一致，才能匹配，实现正确跳转
+
+   ```
+   // 可以匹配成功
+   <NavLink to=`/home/a`></NavLink>
+   // 无法匹配成功
+   <NavLink to=`/home/a/b`></NavLink>
+   <NavLink to=`/home`></NavLink>
+   <NavLink to=`/a/home`></NavLink>
+   <NavLink to=`/a/home/b`></NavLink>
+
+
+   <Route exact path="/home/a" component={Home}></Route>
+   ```
