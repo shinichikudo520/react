@@ -52,7 +52,7 @@
    </Switch>
    ```
 
-3. 传参
+3. 通过路由传参
 
    3.1 在**react\03_react-router\src\views\messages\messages.jsx**中
 
