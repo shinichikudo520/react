@@ -183,7 +183,7 @@
    }
    ```
 
-   5.2 `replace`：新增一个路由跳转记录，替换当前路由记录
+   5.2 `replace`：新增一个路由跳转记录，替换当前路由记录, 上一个路由 A, 当前路由 B, 点击路由 C(replace), 则 history 中只存在 A, C
 
    ```
    replace(id) {
@@ -221,8 +221,8 @@
    5.4 `go`: 前进到某一个路由历史记录
 
    ```
-   go = (index:number) => {
-        this.props.history.go(index);
+   go = (n:number) => {
+        this.props.history.go(n); // n=1/2/-1/-2
     };
    ```
 
