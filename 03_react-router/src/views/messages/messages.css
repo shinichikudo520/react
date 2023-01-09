@@ -1,0 +1,14 @@
+.Messages ul li{
+    overflow: hidden;
+}
+.Messages ul li>*{
+    float: left;
+    vertical-align: middle;
+}
+.Messages ul li>span{
+    display: inline-block;
+    padding: 8px;
+}
+.Messages ul li>button {
+    margin-top: 8px;
+}

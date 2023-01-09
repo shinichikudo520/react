@@ -11,8 +11,8 @@ export default class Home extends Component {
     return (
       <div className="Home">
         <h3>Home component route</h3>
-        <div>
-          <ul className="nav nav-tabs">
+        <div className="nav nav-tabs">
+          <ul>
             <li>
               <MyNavLink to="/home/news">News</MyNavLink>
             </li>

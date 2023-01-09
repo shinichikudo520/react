@@ -75,3 +75,50 @@
         // 读取
         const { id } = this.props.match.params;
    ```
+
+4. 函数传参：在**react\03_react-router\src\views\messages\messages.jsx**中
+
+   - 可以使用箭头函数传参
+
+   ```
+    <button onClick={() => this.push(mes.id)}>push查看</button>
+    <button onClick={() => this.replace(mes.id)}>
+   ```
+
+5. `props`中的`history`对象：在**react\03_react-router\src\views\messages\messages.jsx**中
+
+   5.1 `push`：新增一个路由跳转记录
+
+   ```
+   push(id) {
+        console.log("push...");
+        const url = `/home/message/messagedetails/${id}`;
+        this.props.history.push(url);
+   }
+   ```
+
+   5.2 `replace`：新增一个路由跳转记录，替换当前路由记录
+
+   ```
+   replace(id) {
+        console.log("replace...");
+        const url = `/home/message/messagedetails/${id}`;
+        this.props.history.replace(url);
+   }
+   ```
+
+   5.3 `goBack`: 回退到上一个路由历史记录
+
+   ```
+   goBack = () => {
+        this.props.history.goBack();
+    };
+   ```
+
+   5.3 `goForward`: 前进到下一个路由历史记录
+
+   ```
+   goForward = () => {
+        this.props.history.goForward();
+    };
+   ```
