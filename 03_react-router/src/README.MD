@@ -162,7 +162,7 @@
     <button onClick={() => this.replace(mes.id)}>
    ```
 
-5. 编程式路由导航：`props`中的`history`对象：在**react\03_react-router\src\views\messages\messages.jsx**中
+5. 编程式路由导航：`props`中的`history`对象：在**react\03_react-router\src\views\messages\messages.jsx**中, 只有路由组件才有`history`对象, 一般组件【App.jsx】没有
 
    5.1 `push`：新增一个路由跳转记录
 
@@ -218,12 +218,22 @@
     };
    ```
 
-   5.4 `go`: 前进到某一个路由历史记录
+   5.5 `go`: 前进到某一个路由历史记录
 
    ```
    go = (n:number) => {
         this.props.history.go(n); // n=1/2/-1/-2
     };
+   ```
+
+   5.6 `withRouter`：在一般组件使用`history`对象, 在**react\03_react-router\src\components\app\App.jsx**中
+
+   ```
+   import {  withRouter } from "react-router-dom";
+
+    // withRouter 包裹一般组件, 即可在一般组件中使用 history 对象
+    export default withRouter(App);
+
    ```
 
 6. 路由的模糊匹配与精准匹配
