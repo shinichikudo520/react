@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
+import MyNavLink from "../../components/myNavLink/myNavLink";
 import MessageDetail from "../message_detail/message_detail";
 
 export default class Messages extends Component {
@@ -26,9 +27,14 @@ export default class Messages extends Component {
           {this.state.messageArr.map((mes, index) => {
             return (
               <li key={index}>
-                <a href={`/home/message/messagedetails/${mes.id}`}>
+                <MyNavLink to={`/home/message/messagedetails/${mes.id}`}>
                   {mes.title}
-                </a>
+                </MyNavLink>
+                &nbsp;
+                <button onClick={() => this.push(mes.id)}>push查看</button>
+                <button onClick={() => this.replace(mes.id)}>
+                  replace查看
+                </button>
               </li>
             );
           })}
@@ -41,5 +47,15 @@ export default class Messages extends Component {
         </div>
       </div>
     );
+  }
+  push(id) {
+    console.log("push...");
+    const url = `/home/message/messagedetails/${id}`;
+    this.props.history.push(url);
+  }
+  replace(id) {
+    console.log("replace...");
+    const url = `/home/message/messagedetails/${id}`;
+    this.props.history.replace(url);
   }
 }
