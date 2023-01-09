@@ -169,8 +169,17 @@
    ```
    push(id) {
         console.log("push...");
-        const url = `/home/message/messagedetails/${id}`;
-        this.props.history.push(url);
+        // params 参数
+        // const url = `/home/message/messagedetails/${id}/${true}`;
+        // this.props.history.push(url);
+
+        // search 参数
+        // const url = `/home/message/messagedetails/?id=${id}&isSearch=${true}`;
+        // this.props.history.push(url);
+
+        // state 参数
+        const url = `/home/message/messagedetails`;
+        this.props.history.push(url, { id, isState: true });
    }
    ```
 
@@ -179,8 +188,17 @@
    ```
    replace(id) {
         console.log("replace...");
-        const url = `/home/message/messagedetails/${id}`;
-        this.props.history.replace(url);
+        // params 参数
+        // const url = `/home/message/messagedetails/${id}/${true}`;
+        // this.props.history.replace(url);
+
+        // search 参数
+        // const url = `/home/message/messagedetails/?id=${id}&isSearch=${true}`;
+        // this.props.history.replace(url);
+
+        // state 参数
+        const url = `/home/message/messagedetails`;
+        this.props.history.replace(url, { id, isState: true });
    }
    ```
 
