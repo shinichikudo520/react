@@ -16,7 +16,19 @@
     <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
     <!-- type="text/babel" 此处一定要写 babel, 用于告诉浏览器现在写的是 jsx, 且用 bable 转化 -->
     <script type="text/babel">
-      const vDom = <div></div>;
+      /**
+        功能: 动态展示列表数据
+      */
+      const list = ["aaa", "bbb", "ccc", "ddd"];
+      // 1. 创建虚拟 DOM, jsx语法中DOM元素存在嵌套，则用()包起来
+      const vDom = (
+        <ul>
+          {list.map((i, index) => (
+            <li key={index}>{i}</li>
+          ))}
+        </ul>
+      );
+      // 2. 渲染虚拟 DOM
       ReactDOM.render(vDom, document.getElementById("example"));
     </script>
   </body>
