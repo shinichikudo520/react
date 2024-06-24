@@ -1,10 +1,9 @@
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 [TOC]
 
 
 ## React Hooks
-Markdown Preview Enhanced)
     react 钩子函数的相关 api 学习, 相比于类的形式, 钩子更轻, 代码更加简洁, 可复用性高
 
 ### 类与 Hooks 的差异
