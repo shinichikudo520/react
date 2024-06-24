@@ -10,6 +10,14 @@
   - [相关概念](#相关概念)
   - [注意事项](#注意事项)
   - [常见 hook](#常见-hook)
+    - [1.  useState](#1--usestate)
+    - [2.  useEffect](#2--useeffect)
+    - [3.  useMemo](#3--usememo)
+    - [4.  useCallback](#4--usecallback)
+    - [5.  useRef](#5--useref)
+    - [6.  useContext](#6--usecontext)
+    - [7.  useReducer](#7--usereducer)
+    - [8.  创建自己的 hooks](#8--创建自己的-hooks)
   - [参考文档](#参考文档)
 
 <!-- /code_chunk_output -->
@@ -48,7 +56,7 @@ function Hello(props) {
 
 ### 常见 hook
 
-1.  useState
+#### 1.  useState
 
     - 作用: 为函数组件引入状态(state)
     - 使用:
@@ -77,7 +85,7 @@ function Hello(props) {
 
       - 代码: (useState 的使用)[./my-app/src/component/useState.tsx]
 
-2.  useEffect
+#### 2.  useEffect
 
     - 作用: 引入一个副效应函数, 组件每渲染一次, 该函数就自动执行一次, 组件在网页 dom 加载完成后, 副效应函数也会执行, 常用于以下几方面
 
@@ -161,7 +169,7 @@ function Hello(props) {
 
     - 代码: (useState 的使用)[./my-app/src/component/useEffect.tsx]
 
-3.  useMemo
+#### 3.  useMemo
 
     - 作用: 保证函数式组件重新渲染时, 组件内的**函数调用代码**的执行是可控。会返回一个计算后得到的值并缓存, 可知道计算的依赖项, 只有当依赖项变化时, 才重新计算, 减少组件重新渲染时, 不必要的计算开销
     - 使用:
@@ -191,7 +199,7 @@ function Hello(props) {
       const callback = useCallback(() => {},[]);
       ```
 
-4.  useCallback
+#### 4.  useCallback
 
     - 作用: 减少无效函数的定义
     - 使用:
@@ -207,7 +215,7 @@ function Hello(props) {
         - useMemo 解决的是防止无效的函数调用
         - useCallback 解决的是防止无效的函数定义
 
-5.  useRef
+#### 5.  useRef
 
     - 作用: 可以在函数组件中存储/查找组件内的任意标签和数据, 它在组件 render 时, 永远保持不变, 返回的 ref 对象在组件的整个生命周期内持续存在。
     - 使用:
@@ -230,7 +238,7 @@ function Hello(props) {
       不同点：当count.value变化时，Vue3会自动render
       ```
 
-6.  useContext
+#### 6.  useContext
 
     - 作用: 多层级组件传值
     - 使用:
@@ -240,7 +248,7 @@ function Hello(props) {
       4. 使用 `const {n, setN} = useContext(C)` 来获取数据
     - 代码: (useContext 的使用)[./my-app/src/component/useContext.tsx]
 
-7.  useReducer
+#### 7.  useReducer
 
     - 作用: useState 的升级版, 更灵活
     - 使用:
@@ -266,7 +274,7 @@ function Hello(props) {
 
     - 代码: (useReducer 的使用)[./my-app/src/component/useReducer.tsx]
 
-8.  创建自己的 hooks
+#### 8.  创建自己的 hooks
 
     - 定义:
       ```
