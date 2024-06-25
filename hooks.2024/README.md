@@ -239,7 +239,6 @@ function Hello(props) {
       - 如果是函数, 无论如何都会返回一个新的函数, 除非用 `useCallback` 进行处理
       - 如果是数组, 只有当返回新的数组, 才会引发组件重新渲染, 比如 `push`/`pop` 等都不会返回新数组, 所以不会引起组件重新渲染, `map`/`concat`/`slice` 等会返回新数组, 所以会引发组件重新渲染
       
-    - 当 props 是一个引用类型时, 第二个参数可以自定义比较函数
   - 代码: (memo 的使用)[./my-app/src/component/memo.tsx]
 
 #### 6.  useRef
@@ -345,5 +344,6 @@ function Hello(props) {
 - (React Hooks 详解)[https://blog.csdn.net/duansamve/article/details/109086505]
 - (useMemo useEffect 的区别)[https://blog.csdn.net/z2000ky/article/details/132773148]
 - (详解 useMemo 和 React.memo 的作用)[https://blog.csdn.net/chenyajundd/article/details/137541282]
+- (浅谈React.memo函数)[https://blog.csdn.net/weixin_43804496/article/details/130998052]
 
 
