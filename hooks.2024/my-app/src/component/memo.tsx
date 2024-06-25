@@ -6,6 +6,7 @@ export default function Memo() {
   const [count, setCount] = useState(0);
   const [show, setShow] = useState(true);
   const [person, setPerson] = useState({ name: "张三", age: 18 });
+  const [list, setList] = useState([1, 2, 3]);
 
   const add = useCallback(() => {
     setCount(count + 1);
@@ -46,6 +47,27 @@ export default function Memo() {
       <Age person={person} />
       <button onClick={setName}>修改名字</button>
       <button onClick={setAge}>修改年龄</button>
+      {/* 只有当 list 返回新数组时, 页面数据才会更新 */}
+      <div>list:{list}</div>
+      <List list={list} />
+      <button
+        onClick={() => {
+          list.push(list[list.length - 1] + 1);
+          setList(list);
+          console.log("push...", list);
+        }}
+      >
+        push
+      </button>
+      <button
+        onClick={() => {
+          const newList = list.concat([list[list.length - 1] + 1]);
+          setList(newList);
+          console.log("concat...", list);
+        }}
+      >
+        concat
+      </button>
     </>
   );
 }
@@ -123,3 +145,18 @@ const Age = React.memo(
     return p1.age === p2.age;
   }
 );
+
+const List = React.memo((props: { list: Array<number> }) => {
+  console.log("List 组件...");
+
+  return (
+    <>
+      <div>List 组件</div>
+      <ul>
+        {props.list.map((i, index) => (
+          <li key={index}>{i}</li>
+        ))}
+      </ul>
+    </>
+  );
+});
