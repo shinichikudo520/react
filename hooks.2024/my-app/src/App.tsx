@@ -6,6 +6,7 @@ import UseMemo from "./component/useMemo";
 import UseRef from "./component/useRef";
 import UseState from "./component/useState";
 import UseReducer from "./component/useReducer";
+import Memo from "./component/memo";
 
 function App() {
   return (
@@ -23,13 +24,16 @@ function App() {
       <h2>四、UseCallback 组件</h2>
       <UseCallback />
       <hr />
-      <h2>五、UseRef 组件</h2>
+      <h2>五、Memo 组件</h2>
+      <Memo />
+      <hr />
+      <h2>六、UseRef 组件</h2>
       <UseRef />
       <hr />
-      <h2>六、UseContext 组件</h2>
+      <h2>七、UseContext 组件</h2>
       <UseContext />
       <hr />
-      <h2>七、UseReducer 组件</h2>
+      <h2>八、UseReducer 组件</h2>
       <UseReducer />
     </div>
   );
