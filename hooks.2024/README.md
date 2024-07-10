@@ -19,6 +19,7 @@
     - [7.  useContext](#7--usecontext)
     - [8.  useReducer](#8--usereducer)
     - [9.  创建自己的 hooks](#9--创建自己的-hooks)
+    - [10. useLatest (自定义)](#10-uselatest-自定义)
   - [参考文档](#参考文档)
 
 <!-- /code_chunk_output -->
@@ -300,6 +301,8 @@ function Hello(props) {
 
   - 代码: (useReducer 的使用)[./my-app/src/component/useReducer.tsx]
 
+
+
 #### 9.  创建自己的 hooks
 
   - 定义:
@@ -339,6 +342,18 @@ function Hello(props) {
     };
     ```
 
+
+#### 10. useLatest (自定义)
+  - 作用: useRef 可以拿到最新值，我们可以进行简单的封装，这样做的好处是：可以随时确保获取的是最新值，并且也可以解决闭包问题
+  - 定义: 
+    ```
+    export default function useLatest<T>(value: T){
+      const ref = useRef(value);
+      ref.current = value;
+
+      return ref;
+    }
+    ```
 ### 参考文档
 
 - (React Hooks 详解)[https://blog.csdn.net/duansamve/article/details/109086505]

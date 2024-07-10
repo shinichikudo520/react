@@ -7,6 +7,7 @@ import UseRef from "./component/useRef";
 import UseState from "./component/useState";
 import UseReducer from "./component/useReducer";
 import Memo from "./component/memo";
+import UseLatest from "./component/useLatest";
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
       <hr />
       <h2>八、UseReducer 组件</h2>
       <UseReducer />
+      <h2>九、UseLatest 组件</h2>
+      <UseLatest />
     </div>
   );
 }
